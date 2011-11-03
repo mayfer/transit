@@ -1,0 +1,5 @@
+google_transit
+google_transit_*
+*.pyc
+.svn
+settings.py

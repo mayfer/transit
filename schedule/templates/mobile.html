@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+	<head> 
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+		<meta name="viewport" content="width=320; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/> 
+		<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" /> 
+		<meta name="apple-mobile-web-app-capable" content="yes" /> 
+		<meta names="apple-mobile-web-app-status-bar-style" content="black-translucent" /> 
+		<title>transit</title> 
+		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}desktop.css" /> 
+		<script type="text/javascript">var baseUrl = '{% url index %}';</script> 
+		<script type="text/javascript" src="{{ MEDIA_URL }}jquery.js"></script>	
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+		<script type="text/javascript" src="{{ MEDIA_URL }}google.maps.js"></script>
+<body>
+	<div id='wrapper-outer'>
+		<div id='wrapper-inner'>
+			<!--<div id='header'>
+			</div>-->
+			<div id='content'>
+				<div id='map_header'>
+					<div id='near-me-box'><a href='#' class='update-stops'>Show stops</a></div>
+					<div id='search-box'><form><input type='text' id='search' name='search' class='default-value' title='Bus, Stop # or Address' /><input type='submit' value='Go' /></form></div>
+					<div class='clear'><!-- --></div>
+				</div>
+				<div id='search-results' style='display: none;'>
+				</div>
+				<div id='map_canvas'></div>
+			</div>
+			<div id='api-examples'>
+                <a href='{% url api %}'>View API examples</a>
+			</div>
+			<!--<div id='footer'>
+				BusSnap &copy; 2010 <br /><br /> <a href=''>Contact</a> &bull; <a href=''>About</a> &bull; <a href=''>Terms of Use</a>
+				<br />
+				<span class='translink'>Vancouver bus schedules provided by <a href=''>Translink</a></span>
+			</div>-->
+		</div>
+	</div>
+</body>
+</html>

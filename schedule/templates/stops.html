@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+	<head> 
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+		<title>transit</title> 
+		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}desktop.css" /> 
+		<script type="text/javascript">var base_url = '{% url index %}';</script> 
+		<script type="text/javascript" src="{{ MEDIA_URL }}jquery.js"></script>	
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+		<script type="text/javascript" src="{{ MEDIA_URL }}generic.js"></script>
+		<script type="text/javascript" src="{{ MEDIA_URL }}googlemaps.plugin.js"></script>
+		<script type="text/javascript" src="{{ MEDIA_URL }}jquery.cookie.js"></script>
+		<script type="text/javascript" src="{{ MEDIA_URL }}transit.js"></script>
+	</head>
+	<body>
+		<div id='wrapper-outer'>
+			<div id='wrapper-inner'>
+				<div id='header'>
+				</div>
+				<div id='content'>
+					<div id='search-container'>
+						<form id='search'>
+					        <input type='text' name='search' class='default-value' title='Search for Address (todo: Bus or Stop)' id='search-field' />
+					        <select id='city'>
+					        	<option val='Vancouver, BC'>in Vancouver, BC</option>
+					        </select>
+					        <input type='submit' value='Go' />
+					        <div id='map-loader'></div>
+					    </form>
+	    			</div>
+					<div id='map-container'>
+						<div class='drop-shadow'></div>
+	    				<div id='map'></div>
+	    				<div id='map-controls-container'>
+	    					<div id='map-controls'>
+		    				</div>
+	    				</div>
+					</div>
+					<div id='panel'>
+						<div class='drop-shadow'></div>
+						<!--<div class='panel-arrow'></div>-->
+						<div id='panel-inner'>
+							<div class=''>
+								<div class='title'>
+									<h3 id='main-title'>Pick a stop from the map</h3>
+									<h5 id='sub-title'>The details will show up below</h5>
+								</div>
+								<div class='content'>
+									<table class='bus-times' style='display: none;'>
+										<tr>
+											<th>Bus</th>
+											<th>Next times</th>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class='clear'><!-- --></div>
+				</div>
+				<div id='footer'>
+					<a href='#' onclick='$("#wat").show(); return false;'>About</a> &bull; <a href='mailto:murat@ayfer.net'>Contact</a> &bull; <a href='{% url api %}'>API</a>
+					&nbsp; &nbsp; 
+					<span class='translink'>Vancouver bus schedules provided by <a href=''>Translink</a></span>
+				</div>
+			</div>
+		</div>
+		<div id='wat'>
+			this is the very early beta alpha demo pre-release of a clean interface for Vancouver's bus schedules.<br />
+			iphone owners will be especially happy.
+			<br /><br />
+			<button onclick='$("#wat").hide();'>okay</button>
+		</div>
+	</body> 
+</html>
