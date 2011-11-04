@@ -1,0 +1,9 @@
+<VirtualHost *:80>
+        ServerName takethebus.in
+        ServerAlias www.takethebus.in
+        WSGIScriptAlias /vancouver /var/django/transit/apache/django.wsgi
+        Alias /transit/static /var/django/transit/static
+        Alias /transit/admin/static /usr/local/lib/python2.6/dist-packages/django/contrib/admin/media
+	DocumentRoot /var/www/transit
+	RedirectMatch 301 ^/$ /vancouver
+</VirtualHost>
