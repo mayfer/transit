@@ -2,9 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml"> 
 	<head> 
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-		<title>transit</title> 
+		<title>Vancouver bus stops and schedules.</title> 
 		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}desktop.css" /> 
-		<script type="text/javascript">var base_url = '{% url index %}';</script> 
+		<script type="text/javascript">
+			var base_url = '{% url index %}';
+			var media_url = '{{ MEDIA_URL }}';
+		</script> 
 		<script type="text/javascript" src="{{ MEDIA_URL }}jquery.js"></script>	
 		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 		<script type="text/javascript" src="{{ MEDIA_URL }}generic.js"></script>
@@ -20,7 +23,7 @@
 				<div id='content'>
 					<div id='search-container'>
 						<form id='search'>
-					        <input type='text' name='search' class='default-value' title='Search for Address (todo: Bus or Stop)' id='search-field' />
+					        <input type='text' name='search' class='default-value' title='Search for Address' id='search-field' />
 					        <select id='city'>
 					        	<option val='Vancouver, BC'>in Vancouver, BC</option>
 					        </select>
@@ -59,17 +62,37 @@
 					<div class='clear'><!-- --></div>
 				</div>
 				<div id='footer'>
-					<a href='#' onclick='$("#wat").show(); return false;'>About</a> &bull; <a href='mailto:murat@ayfer.net'>Contact</a> &bull; <a href='{% url api %}'>API</a>
+					<a href='#' onclick='$("#wat").show(); return false;'>About</a> &bull; <a href='mailto:murat@ayfer.net'>Email me</a> &bull; <a href='{% url api %}'>API</a>
 					&nbsp; &nbsp; 
 					<span class='translink'>Vancouver bus schedules provided by <a href=''>Translink</a></span>
+				</div>
+				<div id='last-updated'>
+					schedules were last updated on Nov 4<sup>th</sup> 2011
 				</div>
 			</div>
 		</div>
 		<div id='wat'>
-			this is the very early beta alpha demo pre-release of a clean interface for Vancouver's bus schedules.<br />
-			iphone owners will be especially happy.
+			i made this for reasons that i'm not entirely sure of anymore.<br />
+			i think it works well though, much easier to use than translink's site. and does a few things google maps doesn't do.<br />
+			if you like it tell me and maybe i'll keep working on it.<br />maybe i'll make a mobile/iphone version.
 			<br /><br />
 			<button onclick='$("#wat").hide();'>okay</button>
 		</div>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26807056-1']);
+  _gaq.push(['_setDomainName', 'takethebus.in']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
 	</body> 
 </html>

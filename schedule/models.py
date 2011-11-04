@@ -63,7 +63,7 @@ class Shape(models.Model):
     shape_pt_sequence = models.IntegerField(null=True)
     shape_dist_traveled = models.IntegerField(null=True)
     def __unicode__(self):
-        return self.shape_id
+        return str(self.shape_id)
     
 class Calendar(models.Model):
     class Meta:

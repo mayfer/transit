@@ -1,6 +1,8 @@
 // muratayfer.com 2011
 
 var map;
+var mode = 'stops';
+
 $(document).ready(function() {
 	var lat = $.cookie('lat');
 	var lng = $.cookie('lng');
@@ -45,6 +47,8 @@ function back() {
 }
 
 function updateStops() {
+	if(mode!='stops') return;
+
 	$('#map-controls-container').hide();
 	$('#map-loader').show();
 	var bounds = map.googlemaps('getBounds');
@@ -54,18 +58,18 @@ function updateStops() {
 		var marker_options;
 		if(response.length > 200) {
 			marker_options = {
-				icon: new google.maps.MarkerImage(base_url+'static/images/pin_small	.png',
+				icon: new google.maps.MarkerImage(media_url + 'images/pin_small.png',
 			      new google.maps.Size(10,10),
 			      new google.maps.Point(0,0),
 			      new google.maps.Point(5,5))
 			}
 		} else {
 			marker_options = {
-				icon: new google.maps.MarkerImage(base_url+'static/images/busstop.png',
+				icon: new google.maps.MarkerImage(media_url+'images/busstop.png',
 			      new google.maps.Size(22,37),
 			      new google.maps.Point(0,0),
 			      new google.maps.Point(3,37)),
-			    shadow: new google.maps.MarkerImage(base_url+'static/images/busstop_shadow.png',
+			    shadow: new google.maps.MarkerImage(media_url+'images/busstop_shadow.png',
 			      new google.maps.Size(40,40),
 			      new google.maps.Point(0,0),
 			      new google.maps.Point(3,40)),
@@ -105,6 +109,8 @@ function updateStops() {
 }
 
 function countStops() {
+	if(mode!='stops') return;
+
 	$('#map-loader').show();
 	var bounds = map.googlemaps('getBounds');
 	var url = base_url+'api/stops/count_within_bounds/n/'+bounds.northeast.lat+'/s/'+bounds.southwest.lat+'/e/'+bounds.northeast.lng+'/w/'+bounds.southwest.lng+'/';
@@ -112,9 +118,9 @@ function countStops() {
 		if(response.num_stops < 1000) {
 			$('#map-controls-container').hide();
 			var timer = setTimeout(updateStops, 1000);
-			map.googlemaps('mapMoved', function() { clearTimeout(timer) } );
+			map.googlemaps('mapReady', function() { clearTimeout(timer) } );
 		} else {
-			$('#map-controls').html("Too many ("+response.num_stops+") stops in this area.<br /><a class='load-stops' href='#'>Show them anyway</a>");
+			$('#map-controls').html("Too many ("+response.num_stops+") stops in this area.<br />Zoom in or <a class='load-stops' href='#'>Show them anyway</a>");
 			$('#map-controls-container').show();
 			$('#map-loader').hide();
 		}
@@ -138,7 +144,7 @@ function showTrip(trip_id) {
 	$.getJSON(url, function(response) {
 		//alert(response.headsign);
 		var marker_options = {
-			icon: new google.maps.MarkerImage(base_url+'static/images/pin_small.png',
+			icon: new google.maps.MarkerImage(media_url+'images/pin_small.png',
 		      new google.maps.Size(10,10),
 		      new google.maps.Point(0,0),
 		      new google.maps.Point(5,5))
@@ -164,8 +170,10 @@ function showTrip(trip_id) {
 }
 
 function stopsMode() {
-	map.googlemaps('mapMoved', countStops);
+	map.googlemaps('clear');
+	mode = 'stops';
+	//map.googlemaps('mapReady', updateStops);
 }
 function tripMode() {
-	map.googlemaps('clearEvents');
+	mode = 'trip';
 }

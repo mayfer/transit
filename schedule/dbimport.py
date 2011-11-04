@@ -1,9 +1,19 @@
 from models import *
 from string import split, strip
 import datetime, time
-#Murat is so cool
 
 def importer(txt_location, obj_type):
+    classmap = {
+        'Stop': Stop,
+        'Agency': Agency,
+        'Route': Route,
+        'Shape': Shape,
+        'Calendar': Calendar,
+        'CalendarDate': CalendarDate,
+        'Trip': Trip,
+        'StopTime': StopTime,
+    }
+
     print obj_type
     num_imports = 0
     file = open(txt_location, "r")
@@ -19,14 +29,7 @@ def importer(txt_location, obj_type):
         for num in range(len(values_unkeyed)):
             values[fields[num]] = values_unkeyed[num].strip()
         #print values
-        if obj_type == "Stop": obj = Stop()
-        if obj_type == "Agency": obj = Agency()
-        if obj_type == "Route": obj = Route()
-        if obj_type == "Shape": obj = Shape()
-        if obj_type == "Calendar": obj = Calendar()
-        if obj_type == "CalendarDate": obj = CalendarDate()
-        if obj_type == "Trip": obj = Trip()
-        if obj_type == "StopTime": obj = StopTime()
+        obj = classmap[obj_type]()
         for key, val in values.items():
             if obj_type == "Calendar" or obj_type == "CalendarDate":
                 # need to convert date string 20100515 to 2010-05-15
@@ -42,6 +45,9 @@ def importer(txt_location, obj_type):
         except ValueError:
             print obj
         num_imports += 1
+        del obj
+        del values
+    file.close()
     return num_imports
     
 def link_routes_to_stops():
@@ -64,14 +70,14 @@ def link_routes_to_stops():
         
 def import_all():
     num_imports = 0;
-    dirname = 'google_transit_2011-02-13/'
-    num_imports += importer(dirname+"stops.txt", "Stop")
-    num_imports += importer(dirname+"agency.txt", "Agency")
-    num_imports += importer(dirname+"routes.txt", "Route")
-    num_imports += importer(dirname+"shapes.txt", "Shape")
-    num_imports += importer(dirname+"calendar.txt", "Calendar")
-    num_imports += importer(dirname+"calendar_dates.txt", "CalendarDate")
-    num_imports += importer(dirname+"trips.txt", "Trip")
+    dirname = 'google_transit/'
+#    num_imports += importer(dirname+"stops.txt", "Stop")
+#    num_imports += importer(dirname+"agency.txt", "Agency")
+#    num_imports += importer(dirname+"routes.txt", "Route")
+#    num_imports += importer(dirname+"shapes.txt", "Shape")
+#    num_imports += importer(dirname+"calendar.txt", "Calendar")
+#    num_imports += importer(dirname+"calendar_dates.txt", "CalendarDate")
+#    num_imports += importer(dirname+"trips.txt", "Trip")
     num_imports += importer(dirname+"stop_times.txt", "StopTime")
     print link_routes_to_stops()
     print num_imports

@@ -156,13 +156,13 @@
 			});
 			return result;
 		},
-		mapMoved: function(callback) {
+		mapMoving: function(callback) {
 			data = $(this).data('googlemaps');
-			data.mapMovedListener = google.maps.event.addListener(data.map, 'bounds_changed', callback);
+			google.maps.event.addListener(data.map, 'bounds_changed', callback);
 		},
 		mapReady: function(callback) {
 			data = $(this).data('googlemaps');
-			data.mapReadyListener = google.maps.event.addListener(data.map, 'idle', callback);
+			google.maps.event.addListener(data.map, 'idle', callback);
 		},
 		clearEvents: function() {
 			data = $(this).data('googlemaps');

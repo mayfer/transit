@@ -1,4 +1,4 @@
-body { font-family: "Trebuchet MS",Helvetica,Arial,sans-serif; background: url(images/stripe.png); margin: 0; padding: 0; text-align: center; }
+body { font-family: "Trebuchet MS",Helvetica,Arial,sans-serif; background: url(images/background.png); margin: 0; padding: 0; text-align: center; }
 #wrapper-outer { width: 950px; margin: 0 auto; text-align: left; }
 #wrapper-inner {  }
 
@@ -14,6 +14,8 @@ a:hover { color: #479EFF; }
 #footer .translink { font-size: 12px; line-height: 16px; }
 #footer .translink a { background: none; padding: 0; border: none; }
 #footer .translink a:hover { text-decoration: underline; }
+
+#last-updated { float: right; color: #fff; text-shadow: 1px 1px 1px #000; opacity: 0.5; font-size: 12px; }
 
 #search-container { padding: 5px; position: relative; }
 #search-container input[type='text'] { line-height: 20px; margin: 5px; width: 300px; }
