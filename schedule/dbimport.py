@@ -1,4 +1,5 @@
 from models import *
+from django import db
 from string import split, strip
 import datetime, time
 
@@ -47,6 +48,9 @@ def importer(txt_location, obj_type):
         num_imports += 1
         del obj
         del values
+        db.reset_queries()
+        if num_imports % 50 == 0:
+            print "> {0}         \r".format(num_imports),
     file.close()
     return num_imports
     
@@ -71,13 +75,13 @@ def link_routes_to_stops():
 def import_all():
     num_imports = 0;
     dirname = 'google_transit/'
-#    num_imports += importer(dirname+"stops.txt", "Stop")
-#    num_imports += importer(dirname+"agency.txt", "Agency")
-#    num_imports += importer(dirname+"routes.txt", "Route")
-#    num_imports += importer(dirname+"shapes.txt", "Shape")
-#    num_imports += importer(dirname+"calendar.txt", "Calendar")
-#    num_imports += importer(dirname+"calendar_dates.txt", "CalendarDate")
-#    num_imports += importer(dirname+"trips.txt", "Trip")
+    num_imports += importer(dirname+"stops.txt", "Stop")
+    num_imports += importer(dirname+"agency.txt", "Agency")
+    num_imports += importer(dirname+"routes.txt", "Route")
+    num_imports += importer(dirname+"shapes.txt", "Shape")
+    num_imports += importer(dirname+"calendar.txt", "Calendar")
+    num_imports += importer(dirname+"calendar_dates.txt", "CalendarDate")
+    num_imports += importer(dirname+"trips.txt", "Trip")
     num_imports += importer(dirname+"stop_times.txt", "StopTime")
     print link_routes_to_stops()
     print num_imports
