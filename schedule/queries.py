@@ -45,20 +45,20 @@ def get_stop_from_id(id):
 def get_next_stop_times(stop_id, route_id, next_times=3):
     now = datetime.now()
     two_min_ago = now - timedelta(minutes=2)
-    service_id = get_service_id_for_date()
-    stop_times = StopTime.objects.filter(stop=stop_id, trip__route=route_id, trip__service=service_id, departure_time__gt=gtfs.datetime_to_string(two_min_ago)).order_by('departure_time', 'stop_sequence')[0:next_times]
+    service_ids = get_service_ids_for_date()
+    stop_times = StopTime.objects.filter(stop=stop_id, trip__route=route_id, trip__service__in=service_ids, departure_time__gt=gtfs.datetime_to_string(two_min_ago)).order_by('departure_time', 'stop_sequence')[0:next_times]
     # print connection.queries
     # TODO: show AM times as end of the previous day.
     times = formats.stop_times_to_dict(stop_times)
     return times
     
 def get_schedule(stop_id, route_id, date=date.today()):
-    service_id = get_service_id_for_date(date)
-    stop_times = StopTime.objects.filter(stop=stop_id, trip__route=route_id, trip__service=service_id).order_by('departure_time', 'stop_sequence')
+    service_ids = get_service_ids_for_date(date)
+    stop_times = StopTime.objects.filter(stop=stop_id, trip__route=route_id, trip__service__in=service_id).order_by('departure_time', 'stop_sequence')
     times = formats.stop_times_to_dict(stop_times)
     return times
     
-def get_service_id_for_date(date=date.today()):
+def get_service_ids_for_date(date=date.today()):
     days = {
         0: 'monday',
         1: 'tuesday',
@@ -72,8 +72,8 @@ def get_service_id_for_date(date=date.today()):
     kwargs = {
         day_of_week: 1
     }
-    service_id = Calendar.objects.get(**kwargs).service_id
-    return service_id
+    service_ids = [ calendar.service_id for calendar in Calendar.objects.filter(**kwargs) ]
+    return service_ids
     
 def get_trip_from_id(trip_id):
     trip = Trip.objects.get(trip_id=trip_id)
