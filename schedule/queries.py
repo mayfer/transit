@@ -81,8 +81,8 @@ def get_trip_from_id(trip_id):
     return trip
     
 def get_stops_for_trip(trip_id):
-    service_id = get_service_id_for_date()
-    stop_times = StopTime.objects.filter(trip__trip_id=trip_id, trip__service=service_id).order_by('departure_time', 'stop_sequence')
+    service_ids = get_service_ids_for_date()
+    stop_times = StopTime.objects.filter(trip__trip_id=trip_id, trip__service__in=service_ids).order_by('departure_time', 'stop_sequence')
     return stop_times
 
 def get_routes_for_stop(stop_id):
